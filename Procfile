@@ -1,0 +1,1 @@
+web: gunicorn wallpaper_manager.wsgi

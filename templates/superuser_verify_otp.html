@@ -1,0 +1,30 @@
+{% extends 'base_login.html' %}
+{% load static %}
+
+{% block content %}
+<div style="max-width: 400px; margin: 5rem auto;">
+    <div class="card">
+        <div style="margin-bottom: 20px; text-align:center;">
+            <img src="{% static 'logo/logo.webp' %}" alt="Wallpaperia Logo" style="width:80px; height:auto;">
+            <h2 style="margin-top:10px; color:#667eea;">Verify OTP</h2>
+            <p>Enter the OTP sent to your email</p>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label>OTP</label>
+                <input type="text" name="otp" required maxlength="6">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Verify OTP</button>
+        </form>
+            <div style="margin-top: 10px; text-align:center;">
+        <a href="{% url 'superuser_forgot_password' %}">Back</a>
+    </div>
+    </div>
+
+</div>
+{% endblock %}

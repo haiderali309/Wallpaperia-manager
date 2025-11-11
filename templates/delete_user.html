@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card" style="max-width:500px; margin:2rem auto; text-align:center;">
+    <h2 style="color:#e53e3e;">Confirm Deletion</h2>
+    <p>Are you sure you want to delete user <strong>{{ user.username }}</strong>?</p>
+    <form method="post" style="margin-top:10px">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a href="{% url 'manage_users' %}" class="btn-1 btn-primary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

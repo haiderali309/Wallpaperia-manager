@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <h1 style="color: #667eea;">Manage Dynamic Categories</h1>
+    <a href="{% url 'add_category' %}" class="btn btn-success" style="margin: 1rem 0;">+ Add New Category</a>
+    
+    <div class="grid">
+        {% for cat_id, category in categories.items %}
+        <div class="grid-item">
+            <img src="{{ category.C_url }}" alt="{{ category.name }}" onerror="this.src='https://via.placeholder.com/250x200?text=No+Image'">
+            <div class="grid-item-content">
+                <div class="grid-item-title">{{ category.name }}</div>
+                <small style="color: #666;">ID: {{ cat_id }}</small>
+                <div class="grid-item-actions">
+                    <a href="{% url 'category_wallpapers' cat_id %}" class="btn btn-primary">Wallpapers</a>
+                    <a href="{% url 'edit_category' cat_id %}" class="btn btn-success">Edit</a>
+                    {% if user.can_delete %}
+                    <a href="{% url 'delete_category' cat_id %}" class="btn btn-danger" onclick="return confirm('Delete this category?')">Delete</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No categories yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

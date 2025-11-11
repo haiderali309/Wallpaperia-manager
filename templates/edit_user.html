@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card" style="max-width:600px; margin:2rem auto;">
+    <h1 style="color:#667eea; margin-bottom:1.5rem;">Edit User</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" name="username" value="{{ user.username }}" required>
+        </div>
+
+        <div class="form-group">
+            <label>New Password (optional)</label>
+            <input type="password" name="password" placeholder="Leave blank to keep current password">
+        </div>
+
+        <div class="form-group">
+            <label>Role</label>
+            <select name="role" required>
+                <option value="editor" {% if user.role == 'editor' %}selected{% endif %}>Editor</option>
+                <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Admin</option>
+                <option value="superuser" {% if user.role == 'superuser' %}selected{% endif %}>Super User</option>
+            </select>
+        </div>
+
+            <button type="submit" class="btn btn-success">Save Changes</button>
+            <a href="{% url 'manage_users' %}" class="btn-1 btn-primary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

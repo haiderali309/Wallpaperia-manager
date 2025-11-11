@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card" style="max-width: 600px; margin: 0 auto;">
+    <h1 style="color: #667eea; margin-bottom: 2rem;">Add New User</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" name="username" required>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label>Role</label>
+            <select name="role" required>
+                <option value="editor">Editor (Can add/update only)</option>
+                <option value="admin">Admin (Can add/update/delete)</option>
+                <option value="superuser">Super User (Full access)</option>
+            </select>
+        </div>
+        <div style="display: flex; gap: 1rem;">
+            <button type="submit" class="btn btn-success">Create User</button>
+            <a href="{% url 'manage_users' %}" class="btn btn-primary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

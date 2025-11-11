@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <h1 style="color: #667eea;">{{ category.name }} - Wallpapers</h1>
+    <a href="{% url 'add_wallpaper_to_category' category_id %}" class="btn btn-success" style="margin: 1rem 0;">+ Add Wallpaper</a>
+    <a href="{% url 'manage_categories' %}" class="btn btn-primary" style="margin: 1rem 0;">← Back to Categories</a>
+    
+    <div class="grid">
+        {% for wallpaper in wallpapers %}
+        <div class="grid-item">
+            <img src="{{ wallpaper }}" alt="Wallpaper" onerror="this.src='https://via.placeholder.com/250x200?text=Failed+to+Load'">
+            <div class="grid-item-content">
+                <div style="font-size: 0.8rem; color: #666; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                    {{ wallpaper }}
+                </div>
+                <div class="grid-item-actions">
+                    <a href="{{ wallpaper }}" target="_blank" class="btn btn-primary">View Full</a>
+                    <a href="{% url 'remove_wallpaper_from_category' category_id forloop.counter0 %}" class="btn btn-danger" onclick="return confirm('Remove this wallpaper?')">Remove</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No wallpapers in this category yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

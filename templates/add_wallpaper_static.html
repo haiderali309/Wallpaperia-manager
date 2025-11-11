@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card" style="max-width: 600px; margin: 0 auto;">
+    <h1 style="color: #667eea; margin-bottom: 2rem;">Add Wallpaper to {{ category_name }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Wallpaper URL</label>
+            <input type="url" name="wallpaper_url" required placeholder="https://example.com/wallpaper.jpg">
+        </div>
+        <div id="preview" style="margin-top: 1rem;">
+            <img id="previewImg" style="max-width: 100%; border-radius: 5px; display: none;" alt="Preview">
+        </div>
+        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+            <button type="submit" class="btn btn-success">Add Wallpaper</button>
+            <a href="{% url 'static_category' category_name %}" class="btn btn-primary">Cancel</a>
+        </div>
+    </form>
+    
+    <script>
+        document.querySelector('input[name="wallpaper_url"]').addEventListener('input', function(e) {
+            const img = document.getElementById('previewImg');
+            if (e.target.value) {
+                img.src = e.target.value;
+                img.style.display = 'block';
+            } else {
+                img.style.display = 'none';
+            }
+        });
+    </script>
+</div>
+{% endblock %}

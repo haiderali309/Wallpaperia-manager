@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="card">
+    <h1 style="color: #667eea; margin-bottom: 2rem;">Dashboard</h1>
+    
+    <h2 style="margin-top: 2rem;">Static Categories</h2>
+    <div class="grid">
+        {% for cat_name in static_names %}
+        <div class="grid-item">
+            <div class="grid-item-content">
+                <div class="grid-item-title">{{ cat_name }}</div>
+                <p>{{ static_categories|get_item:cat_name|length }} wallpapers</p>
+                <div class="grid-item-actions">
+                    <a href="{% url 'static_category' cat_name %}" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <h2 style="margin-top: 3rem;">Dynamic Categories</h2>
+    <a href="{% url 'add_category' %}" class="btn btn-success" style="margin-bottom: 1rem;">+ Add Category</a>
+    <div class="grid">
+        {% for cat_id, category in categories.items %}
+        <div class="grid-item">
+            <img src="{{ category.C_url }}" alt="{{ category.name }}" onerror="this.src='https://via.placeholder.com/250x200?text=No+Image'">
+            <div class="grid-item-content">
+                <div class="grid-item-title">{{ category.name }}</div>
+                <p>{{ category.wallpapers|length }} wallpapers</p>
+                <div class="grid-item-actions">
+                    <a href="{% url 'category_wallpapers' cat_id %}" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No categories yet. Add your first category!</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
